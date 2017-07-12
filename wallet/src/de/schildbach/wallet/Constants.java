@@ -110,9 +110,9 @@ public final class Constants {
             .equals(NetworkParameters.ID_MAINNET) ? "glt" : "tglt";
 
     /** URL to fetch version alerts from. */
-    public static final HttpUrl VERSION_URL = HttpUrl.parse("http://globaltoken.org/android/org/globaltoken/wallet/version");
+    public static final HttpUrl VERSION_URL = HttpUrl.parse("https://api.globaltoken.org/android/org/globaltoken/wallet/version");
     /** URL to fetch dynamic fees from. */
-    public static final HttpUrl DYNAMIC_FEES_URL = HttpUrl.parse("http://globaltoken.org/android/org/globaltoken/wallet/fees");
+    public static final HttpUrl DYNAMIC_FEES_URL = HttpUrl.parse("https://api.globaltoken.org/android/org/globaltoken/wallet/fees");
 
     /** MIME type used for transmitting single transactions. */
     public static final String MIMETYPE_TRANSACTION = "application/x-glttx";

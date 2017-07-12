@@ -1,2 +1,1 @@
-tcp:134.255.221.7
-tls:134.255.221.7
+tls:api.globaltoken.org
