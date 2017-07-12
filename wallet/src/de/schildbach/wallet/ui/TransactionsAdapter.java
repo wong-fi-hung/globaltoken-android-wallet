@@ -43,7 +43,7 @@ import de.schildbach.wallet.data.AddressBookProvider;
 import de.schildbach.wallet.util.CircularProgressView;
 import de.schildbach.wallet.util.Formats;
 import de.schildbach.wallet.util.WalletUtils;
-import de.schildbach.wallet_test.R;
+import org.globaltoken.wallet.R;
 
 import android.content.Context;
 import android.content.res.Resources;
@@ -133,7 +133,7 @@ public class TransactionsAdapter extends RecyclerView.Adapter<RecyclerView.ViewH
 
         final Resources res = context.getResources();
         colorBackground = res.getColor(R.color.bg_bright);
-        colorBackgroundSelected = res.getColor(R.color.bg_panel);
+        colorBackgroundSelected = res.getColor(R.color.bg_transactions);
         colorSignificant = res.getColor(R.color.fg_significant);
         colorLessSignificant = res.getColor(R.color.fg_less_significant);
         colorInsignificant = res.getColor(R.color.fg_insignificant);

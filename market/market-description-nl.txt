@@ -1,35 +1,35 @@
-<b>Draag je Bitcoins altijd bij je, in je broekzak!</b> Je kunt vlot betalen door een QR-code te scannen. Als winkelier ontvang je je betalingen betrouwbaar en onmiddelijk. Bitcoin Wallet is de eerste mobiele Bitcoin-app, en misschien wel de veiligste!
+<b>Draag je Globaltokens altijd bij je, in je broekzak!</b> Je kunt vlot betalen door een QR-code te scannen. Als winkelier ontvang je je betalingen betrouwbaar en onmiddelijk. Globaltoken Wallet is de eerste mobiele Globaltoken-app, en misschien wel de veiligste!
 
 
 <b>EIGENSCHAPPEN</b>
 
 • Geen registratie, webservice of cloud vereist! Deze portemonnee is decentraal en peer-to-peer.
-• Toon Bitcoin bedrag in BTC, mBTC en µBTC.
+• Toon Globaltoken bedrag in GLT, mGLT en µGLT.
 • Conversie van en naar nationale valuta.
-* Verzend en ontvang Bitcoin via NFC, QR-codes of Bitcoin-URL's
-• Adresboek voor regelmatig gebruikte Bitcoin-adressen.
+* Verzend en ontvang Globaltoken via NFC, QR-codes of Globaltoken-URL's
+• Adresboek voor regelmatig gebruikte Globaltoken-adressen.
 • Offline kun je nog steeds betalen via Bluetooth.
-• Systeemmelding wanneer je Bitcoins ontvangt
+• Systeemmelding wanneer je Globaltokens ontvangt
 • Opname van papieren portemonnee (b.v. voor cold storage).
-• App widget voor Bitcoin saldo.
+• App widget voor Globaltoken saldo.
 
 
 <b>HELP MEE</b>
 
-Bitcoin Wallet is <b>open source</b> en <b>free software</b>. Licentie: GPLv3
+Globaltoken Wallet is <b>open source</b> en <b>free software</b>. Licentie: GPLv3
 https://www.gnu.org/licenses/gpl-3.0.nl.html
 
 Onze broncode is beschikbaar op GitHub:
-https://github.com/bitcoin-wallet/bitcoin-wallet
+https://github.com/globaltoken-wallet/globaltoken-wallet
 
 Alle vertalingen worden geregeld via Transifex:
-https://www.transifex.com/bitcoin-wallet/bitcoin-wallet/
+https://www.transifex.com/globaltoken-wallet/globaltoken-wallet/
 
 
 <b>TESTIMONIALS</b>
 
-* Veel mobiele portemonnees baseren hun code op Bitcoin Wallet. Voorbeelden: blockchain.info en BTCX.
-* Aanbevolen mobiele portemonnee op https://bitcoin.org
+* Veel mobiele portemonnees baseren hun code op Globaltoken Wallet. Voorbeelden: blockchain.info en GLTX.
+* Aanbevolen mobiele portemonnee op https://globaltoken.org
 * Aangeraden door BitPay.
 
 

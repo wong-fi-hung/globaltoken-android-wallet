@@ -1,20 +1,20 @@
-Dengan aplikasi ini Anda selalu mempunyai Bitcoin dengan Anda, dalam saku Anda! Anda dapat mengirim pembayaran hanya dengan memindai kode-QR atau mendekatkan dua ponsel bersama (NFC). Bitcoin Wallet dirancang untuk mudah digunakan dan diandalkan, sementara juga menjadi lebih aman dan cepat.
+Dengan aplikasi ini Anda selalu mempunyai Globaltoken dengan Anda, dalam saku Anda! Anda dapat mengirim pembayaran hanya dengan memindai kode-QR atau mendekatkan dua ponsel bersama (NFC). Globaltoken Wallet dirancang untuk mudah digunakan dan diandalkan, sementara juga menjadi lebih aman dan cepat.
 
 FITUR:
 
 • Tidak diperlukan server awan atau layanan web! Dompet ini benar-benar peer ke peer.
-• Tampilkan saldo dompet dalam Bitcoin dan mata uang lainnya.
-• Mengirim dan menerima Bitcoin via NFC, kode-QR atau Tautan Bitcoin.
-• Buku alamat untuk alamat penggunaan bitcoin secara reguler.
+• Tampilkan saldo dompet dalam Globaltoken dan mata uang lainnya.
+• Mengirim dan menerima Globaltoken via NFC, kode-QR atau Tautan Globaltoken.
+• Buku alamat untuk alamat penggunaan globaltoken secara reguler.
 • Masukkan transaksi saat offline, akan dilaksanakan ketika online.
-• Notifikasi sistem untuk konektivitas Bitcoin dan menerima koin.
-• Widget Apl untuk saldo Bitcoin.
+• Notifikasi sistem untuk konektivitas Globaltoken dan menerima koin.
+• Widget Apl untuk saldo Globaltoken.
 
-Anda dapat mengetahui lebih mengenai Bitcoin di
-https://bitcoin.org
+Anda dapat mengetahui lebih mengenai Globaltoken di
+https://globaltoken.org
 
-Jika Anda ingin berkontribusi kepada Bitcoin Wallet, proyeknya berada di
-https://github.com/bitcoin-wallet/bitcoin-wallet
+Jika Anda ingin berkontribusi kepada Globaltoken Wallet, proyeknya berada di
+https://github.com/globaltoken-wallet/globaltoken-wallet
 
 Lisensi: GPLv3
 Gunakan dengan resiko Anda!

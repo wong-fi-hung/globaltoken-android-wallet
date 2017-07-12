@@ -33,7 +33,7 @@ import de.schildbach.wallet.service.BlockchainState;
 import de.schildbach.wallet.service.BlockchainStateLoader;
 import de.schildbach.wallet.ui.send.FeeCategory;
 import de.schildbach.wallet.ui.send.SendCoinsActivity;
-import de.schildbach.wallet_test.R;
+import org.globaltoken.wallet.R;
 
 import android.app.Activity;
 import android.app.Fragment;
@@ -85,8 +85,13 @@ public final class WalletBalanceFragment extends Fragment {
     private static final int ID_BLOCKCHAIN_STATE_LOADER = 2;
 
     private static final long BLOCKCHAIN_UPTODATE_THRESHOLD_MS = DateUtils.HOUR_IN_MILLIS;
+<<<<<<< HEAD
+    private static final Coin SOME_BALANCE_THRESHOLD = Coin.COIN.divide(20);
+    private static final Coin TOO_MUCH_BALANCE_THRESHOLD = Coin.COIN.multiply(250000);
+=======
     private static final Coin SOME_BALANCE_THRESHOLD = Coin.COIN.divide(100);
     private static final Coin TOO_MUCH_BALANCE_THRESHOLD = Coin.COIN.divide(2);
+>>>>>>> refs/remotes/bitcoin-wallet/master
 
     @Override
     public void onAttach(final Activity activity) {

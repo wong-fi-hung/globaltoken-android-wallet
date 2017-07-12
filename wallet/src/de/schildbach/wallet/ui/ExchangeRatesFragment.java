@@ -32,7 +32,7 @@ import de.schildbach.wallet.data.ExchangeRate;
 import de.schildbach.wallet.data.ExchangeRatesProvider;
 import de.schildbach.wallet.service.BlockchainState;
 import de.schildbach.wallet.service.BlockchainStateLoader;
-import de.schildbach.wallet_test.R;
+import org.globaltoken.wallet.R;
 
 import android.app.Activity;
 import android.app.Fragment;
@@ -347,8 +347,8 @@ public final class ExchangeRatesFragment extends Fragment implements OnSharedPre
 
             holder.currencyCodeView.setText(exchangeRate.getCurrencyCode());
 
-            holder.rateView.setFormat(!rateBase.isLessThan(Coin.COIN) ? Constants.LOCAL_FORMAT.minDecimals(2)
-                    : Constants.LOCAL_FORMAT.minDecimals(4));
+            holder.rateView.setFormat(!rateBase.isLessThan(Coin.COIN) ? Constants.LOCAL_FORMAT.minDecimals(8)
+                    : Constants.LOCAL_FORMAT.minDecimals(8));
             holder.rateView.setAmount(exchangeRate.rate.coinToFiat(rateBase));
 
             holder.walletView.setFormat(Constants.LOCAL_FORMAT);

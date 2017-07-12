@@ -7,20 +7,20 @@ Your wallet contains your private keys and various transaction related metadata.
 storage:
 
     Mainnet: /data/data/de.schildbach.wallet/files/wallet-protobuf
-    Testnet: /data/data/de.schildbach.wallet_test/files/wallet-protobuf-testnet
+    Testnet: /data/data/org.globaltoken.wallet/files/wallet-protobuf-testnet
 
 The wallet file format is not compatible to wallet.dat (Satoshi client). Rather, it uses a custom protobuf format
-which should be compatible between clients using bitcoinj.
+which should be compatible between clients using globaltokenj.
 
 Certain actions cause automatic rolling backups of your wallet to app-private storage:
 
     Mainnet: /data/data/de.schildbach.wallet/files/key-backup-protobuf
-    Testnet: /data/data/de.schildbach.wallet_test/files/key-backup-protobuf-testnet
+    Testnet: /data/data/org.globaltoken.wallet/files/key-backup-protobuf-testnet
 
 Your wallet can be manually backed up to and restored from external storage:
 
-    Mainnet: /sdcard/Download/bitcoin-wallet-backup-<yyyy-MM-dd>
-    Testnet: /sdcard/Download/bitcoin-wallet-backup-testnet-<yyyy-MM-dd>
+    Mainnet: /sdcard/Download/globaltoken-wallet-backup-<yyyy-MM-dd>
+    Testnet: /sdcard/Download/globaltoken-wallet-backup-testnet-<yyyy-MM-dd>
 
 If you want to recover coins from manual backups and for whatever reason you cannot use the app
 itself to restore from the backup, see the separate [README.recover.md](README.recover.md) guide.
@@ -29,14 +29,14 @@ The current fee rate for each of the fee categories (economic, normal, priority)
 app-private storage:
 
     Mainnet: /data/data/de.schildbach.wallet/files/fees.txt
-    Testnet: /data/data/de.schildbach.wallet_test/files/fees-testnet.txt
+    Testnet: /data/data/org.globaltoken.wallet/files/fees-testnet.txt
 
 
 ### DEBUGGING
 
 Wallet file for Testnet can be pulled from an (even un-rooted) device using:
 
-    adb pull /data/data/de.schildbach.wallet_test/files/wallet-protobuf-testnet
+    adb pull /data/data/org.globaltoken.wallet/files/wallet-protobuf-testnet
 
 Log messages can be viewed by:
 
@@ -69,14 +69,14 @@ Download and install the required Android dependencies:
 
 Download the [Android NDK](https://developer.android.com/ndk), then unpack it to your workspace directory. Point your `ANDROID_NDK_HOME` variable to the unpacked Android NDK directory.
 
-Finally, you can build Bitcoin Wallet and sign it with your development key. Again in your workspace,
+Finally, you can build Globaltoken Wallet and sign it with your development key. Again in your workspace,
 use:
 
     # first time only
-    git clone -b master https://github.com/bitcoin-wallet/bitcoin-wallet.git bitcoin-wallet
+    git clone -b master https://github.com/globaltoken/globaltoken-wallet.git globaltoken-wallet
 
     # each time
-    cd bitcoin-wallet
+    cd globaltoken-wallet
     git pull
     gradle clean :native-scrypt:copy test build
 
@@ -86,7 +86,7 @@ To install the app on your Android device, use:
     sudo apt install android-tools-adb
 
     # each time
-    adb install wallet/build/outputs/apk/bitcoin-wallet-debug.apk
+    adb install wallet/build/outputs/apk/globaltoken-wallet-debug.apk
 
 If installation fails, make sure "Developer options" and "USB debugging" are enabled on your Android device, and an ADB
 connection is established.
@@ -103,7 +103,7 @@ wallet file is protected against access from non-root users. In the code reposit
 separate 'prod' branch that gets rebased against master with each released version.
 
     # each time
-    cd bitcoin-wallet
+    cd globaltoken-wallet
     git fetch origin
     git checkout origin/prod
     gradle clean :native-scrypt:copy test build
@@ -143,7 +143,7 @@ corrected manually.
 
 ### NFC (Near field communication)
 
-Bitcoin Wallet supports reading Bitcoin requests via NFC, either from a passive NFC tag or from
+Globaltoken Wallet supports reading Globaltoken requests via NFC, either from a passive NFC tag or from
 another NFC capable Android device that is requesting coins.
 
 For this to work, just enable NFC in your phone and hold your phone to the tag or device (with
@@ -156,24 +156,24 @@ Instructions for preparing an NFC tag with your address:
 
 - Some tags have less than 50 bytes capacity, those won't work. 1 KB tags recommended.
 
-- The tag needs to contain a Bitcoin URI. You can construct one with the "Request coins" dialog,
+- The tag needs to contain a Globaltoken URI. You can construct one with the "Request coins" dialog,
   then share with messaging or email. You can also construct the URI manually. Mainnet example:
-  `bitcoin:1G2Y2jP5YFZ5RGk2PXaeWwbeA5y1ZtFhoL`
+  `globaltoken:GQZ834N6CgaHnWKxG31gPCN8DosxsCyBgx`
 
 - The type of the message needs to be URI or URL (not Text).
 
 - If you put your tag at a public place, don't forget to enable write protect. Otherwise, someone
-  could overwrite the tag with his own Bitcoin address.
+  could overwrite the tag with his own Globaltoken address.
 
 
 ### BITCOINJ
 
-Bitcoin Wallet uses [bitcoinj](https://bitcoinj.github.io/) for Bitcoin specific logic.
+Globaltoken Wallet uses [globaltokenj](https://github.com/globaltoken/globaltokenj) for Globaltoken specific logic.
 
 
 ### EXCHANGE RATES
 
-Bitcoin Wallet reads this feed from "BitcoinAverage" for getting exchange rates:
+Globaltoken Wallet reads this feed from "BitcoinAverage" for getting exchange rates:
 
     https://apiv2.bitcoinaverage.com/indices/global/ticker/short?crypto=BTC
 
@@ -185,7 +185,7 @@ mind it's always a 24h average. This feature can be disabled with the compile-ti
 
 ### SWEEPING WALLETS
 
-When sweeping wallets, Bitcoin Wallet uses a set of Electrum servers to query for unspent transaction
+When sweeping wallets, Globaltoken Wallet uses a set of Electrum servers to query for unspent transaction
 outputs (UTXOs). This feature can be disabled with the compile-time flag:
 
     Constants.ENABLE_SWEEP_WALLET

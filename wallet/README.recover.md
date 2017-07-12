@@ -54,11 +54,11 @@ paragraph directly to DECRYPTING.
 You cannot find your backup? If you're still using the device you made the backup with, there is
 a good chance the backup is on-device. Use:
 
-    adb shell ls -l /sdcard/Download/bitcoin-wallet-*
+    adb shell ls -l /sdcard/Download/globaltoken-wallet-*
 
 It will list any backup files present. Pick one and use:
 
-    adb pull /sdcard/Download/bitcoin-wallet-backup-testnet-2014-11-01
+    adb pull /sdcard/Download/globaltoken-wallet-backup-testnet-2014-11-01
 
 to copy the file to your PC.
 
@@ -67,7 +67,7 @@ to copy the file to your PC.
 
 You now have your backup file on your PC. Wallet backups are encrypted. Let's decrypt it using:
 
-    openssl enc -d -aes-256-cbc -md md5 -a -in bitcoin-wallet-backup-testnet-2014-11-01 > bitcoin-wallet-decrypted-backup
+    openssl enc -d -aes-256-cbc -md md5 -a -in bitcoin-wallet-backup-testnet-2014-11-01 > globaltoken-wallet-decrypted-backup
 
 It will ask you for a decryption password, which is your backup password. If it prints
 "bad password" you've got the wrong password, but if it doesn't print anything your password might
@@ -75,7 +75,7 @@ still be wrong. We can only be sure by looking at the decrypted data.
 
 Historically there is two backup formats. Let's look at the first printable characters in the file:
 
-    cat bitcoin-wallet-decrypted-backup | tr -cd "[:print:]" | awk '{print $1}'
+    cat globaltoken-wallet-decrypted-backup | tr -cd "[:print:]" | awk '{print $1}'
 
 If it prints "org.bitcoin.production", you got the right password and the backup file uses the
 bitcoinj protobuf format. This backup format was introduced in v3.47 (May 2014). Skip to
@@ -102,18 +102,18 @@ Make sure everything is compiled and ready to go by using once:
 
 Now use wallet-tool to sync the wallet from your backup:
 
-    ./wallet-tool reset --wallet=/tmp/bitcoin-wallet-decrypted-backup
-    ./wallet-tool sync --wallet=/tmp/bitcoin-wallet-decrypted-backup --debuglog
+    ./wallet-tool reset --wallet=/tmp/globaltoken-wallet-decrypted-backup
+    ./wallet-tool sync --wallet=/tmp/globaltoken-wallet-decrypted-backup --debuglog
 
 The sync process will take anywhere from a few minutes to hours. Wallet-tool will return to the
 shell prompt if its finished syncing. Have a look at the wallet:
 
-    ./wallet-tool dump --wallet=/tmp/bitcoin-wallet-decrypted-backup
+    ./wallet-tool dump --wallet=/tmp/globaltoken-wallet-decrypted-backup
 
 Does the balance look right? You can see all transactions that ever touched your wallet. Now empty
 your entire wallet to the desired destination wallet:
 
-    ./wallet-tool send --wallet=/tmp/bitcoin-wallet-decrypted-backup --output=<receiving address of destination wallet>:ALL
+    ./wallet-tool send --wallet=/tmp/globaltoken-wallet-decrypted-backup --output=<receiving address of destination wallet>:ALL
 
 If your wallet was protected by a spending PIN, you need to supply that PIN using the
 `--password=<PIN>` option. Be extra careful with this command to get all parameters right. If it
@@ -126,7 +126,7 @@ are confirmed, you're done and you can skip the next paragraph to EPILOGUE.
 
 Have a deeper look at the backup file:
 
-    cat bitcoin-wallet-decrypted-backup
+    cat globaltoken-wallet-decrypted-backup
 
 You'll see each line contains a key in WIF (wallet import format), technically Base58. The
 datetime string after each key is the birthdate of that key which you can ignore for the purpose

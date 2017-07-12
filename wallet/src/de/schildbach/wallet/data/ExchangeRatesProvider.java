@@ -18,6 +18,9 @@
 package de.schildbach.wallet.data;
 
 import java.math.BigDecimal;
+import java.math.RoundingMode;
+import java.text.DecimalFormat;
+import java.text.DecimalFormatSymbols;
 import java.util.Currency;
 import java.util.Iterator;
 import java.util.Locale;
@@ -30,6 +33,7 @@ import org.bitcoinj.core.Coin;
 import org.bitcoinj.utils.Fiat;
 import org.bitcoinj.utils.MonetaryFormat;
 import org.json.JSONObject;
+import org.json.JSONArray;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
@@ -73,10 +77,40 @@ public class ExchangeRatesProvider extends ContentProvider {
     @Nullable
     private Map<String, ExchangeRate> exchangeRates = null;
     private long lastUpdated = 0;
+	private double gltBtcConversion = -1;
+	private double gltDogeConversion = -1;
+	private double gltEsp2Conversion = -1;
+	private double gltKicConversion = -1;
+	private double gltLtcConversion = -1;
+	private double gltMoonConversion = -1;
 
     private static final HttpUrl BITCOINAVERAGE_URL = HttpUrl
             .parse("https://apiv2.bitcoinaverage.com/indices/global/ticker/short?crypto=BTC");
     private static final String BITCOINAVERAGE_SOURCE = "BitcoinAverage.com";
+	
+    private static final HttpUrl COINEXCHANGE_URL = HttpUrl
+            .parse("https://www.coinexchange.io/api/v1/getmarketsummary?market_id=263");
+	private static final String COINEXCHANGE_SOURCE = "Coinexchange.io";
+	
+	private static final HttpUrl NOVAEXCHANGE_URL_DOGE = HttpUrl
+            .parse("https://novaexchange.com/remote/v2/market/info/DOGE_GLT/");
+	private static final String NOVAEXCHANGE_SOURCE_DOGE = "Novaexchange.com";
+	
+	private static final HttpUrl NOVAEXCHANGE_URL_ESP2 = HttpUrl
+            .parse("https://novaexchange.com/remote/v2/market/info/ESP2_GLT/");
+	private static final String NOVAEXCHANGE_SOURCE_ESP2 = "Novaexchange.com";
+	
+	private static final HttpUrl NOVAEXCHANGE_URL_KIC = HttpUrl
+            .parse("https://novaexchange.com/remote/v2/market/info/KIC_GLT/");
+	private static final String NOVAEXCHANGE_SOURCE_KIC = "Novaexchange.com";
+	
+	private static final HttpUrl NOVAEXCHANGE_URL_LTC = HttpUrl
+            .parse("https://novaexchange.com/remote/v2/market/info/LTC_GLT/");
+	private static final String NOVAEXCHANGE_SOURCE_LTC = "Novaexchange.com";
+	
+	private static final HttpUrl NOVAEXCHANGE_URL_MOON = HttpUrl
+            .parse("https://novaexchange.com/remote/v2/market/info/MOON_GLT/");
+	private static final String NOVAEXCHANGE_SOURCE_MOON = "Novaexchange.com";
 
     private static final long UPDATE_FREQ_MS = 10 * DateUtils.MINUTE_IN_MILLIS;
 
@@ -116,11 +150,92 @@ public class ExchangeRatesProvider extends ContentProvider {
         final boolean offline = uri.getQueryParameter(QUERY_PARAM_OFFLINE) != null;
 
         if (!offline && (lastUpdated == 0 || now - lastUpdated > UPDATE_FREQ_MS)) {
+			double newGltBtcConversion = -1;
+			double newGltDogeConversion = -1;
+			double newGltEsp2Conversion = -1;
+			double newGltKicConversion = -1;
+			double newGltLtcConversion = -1;
+			double newGltMoonConversion = -1;
+            if ((gltBtcConversion == -1))
+                newGltBtcConversion = requestGltBtcConversion();
+
+            if (newGltBtcConversion != -1)
+                gltBtcConversion = newGltBtcConversion;
+
+            if (gltBtcConversion == -1)
+				return null;
+				
+			if ((gltDogeConversion == -1))
+                newGltDogeConversion = requestGltDogeConversion();
+
+            if (newGltDogeConversion != -1)
+                gltDogeConversion = newGltDogeConversion;
+
+            if (gltDogeConversion == -1)
+				return null;
+				
+			if ((gltEsp2Conversion == -1))
+                newGltEsp2Conversion = requestGltEsp2Conversion();
+
+            if (newGltEsp2Conversion != -1)
+                gltEsp2Conversion = newGltEsp2Conversion;
+
+            if (gltEsp2Conversion == -1)
+				return null;
+				
+			if ((gltKicConversion == -1))
+                newGltKicConversion = requestGltKicConversion();
+
+            if (newGltKicConversion != -1)
+                gltKicConversion = newGltKicConversion;
+
+            if (gltKicConversion == -1)
+				return null;
+				
+			if ((gltLtcConversion == -1))
+                newGltLtcConversion = requestGltLtcConversion();
+
+            if (newGltLtcConversion != -1)
+                gltLtcConversion = newGltLtcConversion;
+
+            if (gltLtcConversion == -1)
+				return null;
+			
+			if ((gltMoonConversion == -1))
+                newGltMoonConversion = requestGltMoonConversion();
+
+            if (newGltMoonConversion != -1)
+                gltMoonConversion = newGltMoonConversion;
+
+            if (gltMoonConversion == -1)
+				return null;
+				
             Map<String, ExchangeRate> newExchangeRates = null;
             if (newExchangeRates == null)
-                newExchangeRates = requestExchangeRates();
+                newExchangeRates = requestExchangeRates(gltBtcConversion);
 
             if (newExchangeRates != null) {
+				double mBTCRate = gltBtcConversion*1000;
+				double satoshirate = gltBtcConversion*1000*1000*100;
+				String strBTCRate = String.format(Locale.US, "%.8f", gltBtcConversion).replace(',', '.');
+                String strmBTCRate = String.format(Locale.US, "%.6f", mBTCRate).replace(',', '.');
+				String strsatoshiRate = String.format(Locale.US, "%.2f", satoshirate).replace(',', '.');
+				String strDogeRate = String.format(Locale.US, "%.8f", gltDogeConversion).replace(',', '.');
+				String strEsp2Rate = String.format(Locale.US, "%.8f", gltEsp2Conversion).replace(',', '.');
+				String strKicRate = String.format(Locale.US, "%.8f", gltKicConversion).replace(',', '.');
+				String strLtcRate = String.format(Locale.US, "%.8f", gltLtcConversion).replace(',', '.');
+				String strMoonRate = String.format(Locale.US, "%.8f", gltMoonConversion).replace(',', '.');
+				
+				newExchangeRates.put("BTC", new ExchangeRate(new org.bitcoinj.utils.ExchangeRate(Fiat.parseFiat("BTC", strBTCRate)), COINEXCHANGE_SOURCE));
+				newExchangeRates.put("DOGE", new ExchangeRate(new org.bitcoinj.utils.ExchangeRate(Fiat.parseFiat("DOGE", strDogeRate)), NOVAEXCHANGE_SOURCE_DOGE));
+				newExchangeRates.put("ESP2", new ExchangeRate(new org.bitcoinj.utils.ExchangeRate(Fiat.parseFiat("ESP2", strEsp2Rate)), NOVAEXCHANGE_SOURCE_ESP2));
+				newExchangeRates.put("GLT", new ExchangeRate(new org.bitcoinj.utils.ExchangeRate(Fiat.parseFiat("GLT", "1")), COINEXCHANGE_SOURCE));
+				newExchangeRates.put("KIC", new ExchangeRate(new org.bitcoinj.utils.ExchangeRate(Fiat.parseFiat("KIC", strKicRate)), NOVAEXCHANGE_SOURCE_KIC));
+				newExchangeRates.put("LTC", new ExchangeRate(new org.bitcoinj.utils.ExchangeRate(Fiat.parseFiat("LTC", strLtcRate)), NOVAEXCHANGE_SOURCE_LTC));
+				newExchangeRates.put("MOON", new ExchangeRate(new org.bitcoinj.utils.ExchangeRate(Fiat.parseFiat("MOON", strMoonRate)), NOVAEXCHANGE_SOURCE_MOON));
+				newExchangeRates.put("mBTC", new ExchangeRate(new org.bitcoinj.utils.ExchangeRate(Fiat.parseFiat("mBTC", strmBTCRate)), COINEXCHANGE_SOURCE));
+				newExchangeRates.put("SATOSHI", new ExchangeRate(new org.bitcoinj.utils.ExchangeRate(Fiat.parseFiat("SATOSHI", strsatoshiRate)), COINEXCHANGE_SOURCE));
+                				
                 exchangeRates = newExchangeRates;
                 lastUpdated = now;
 
@@ -130,7 +245,7 @@ public class ExchangeRatesProvider extends ContentProvider {
             }
         }
 
-        if (exchangeRates == null)
+        if (exchangeRates == null || gltBtcConversion == -1)
             return null;
 
         final MatrixCursor cursor = new MatrixCursor(
@@ -224,7 +339,7 @@ public class ExchangeRatesProvider extends ContentProvider {
         throw new UnsupportedOperationException();
     }
 
-    private Map<String, ExchangeRate> requestExchangeRates() {
+    private Map<String, ExchangeRate> requestExchangeRates(double gltBtcConversion) {
         final Stopwatch watch = Stopwatch.createStarted();
 
         final Request.Builder request = new Request.Builder();
@@ -249,10 +364,21 @@ public class ExchangeRatesProvider extends ContentProvider {
                             final JSONObject exchangeRate = head.getJSONObject(currencyCode);
                             final JSONObject averages = exchangeRate.getJSONObject("averages");
                             try {
-                                final Fiat rate = parseFiatInexact(fiatCurrencyCode, averages.getString("day"));
-                                if (rate.signum() > 0)
+                                float value = Float.valueOf(averages.getString("day"));
+								String fetchedvalue = String.format("%.02f", value);
+								final String rate = fetchedvalue.replace(",", ".");
+								final double btcRate = Double.parseDouble(Fiat.parseFiat(fiatCurrencyCode, rate).toPlainString());
+                                DecimalFormat df = new DecimalFormat("#.########");
+                                df.setRoundingMode(RoundingMode.HALF_UP);
+                                DecimalFormatSymbols dfs = new DecimalFormatSymbols();
+                                dfs.setDecimalSeparator('.');
+                                dfs.setGroupingSeparator(',');
+                                df.setDecimalFormatSymbols(dfs);
+								final Fiat gltRate = parseFiatInexact(fiatCurrencyCode, df.format(btcRate*gltBtcConversion));
+																
+                                if (gltRate.signum() > 0)
                                     rates.put(fiatCurrencyCode, new ExchangeRate(
-                                            new org.bitcoinj.utils.ExchangeRate(rate), BITCOINAVERAGE_SOURCE));
+                                            new org.bitcoinj.utils.ExchangeRate(gltRate), BITCOINAVERAGE_SOURCE));
                             } catch (final IllegalArgumentException x) {
                                 log.warn("problem fetching {} exchange rate from {}: {}", currencyCode,
                                         BITCOINAVERAGE_URL, x.getMessage());
@@ -281,4 +407,207 @@ public class ExchangeRatesProvider extends ContentProvider {
         final long val = new BigDecimal(str).movePointRight(Fiat.SMALLEST_UNIT_EXPONENT).longValue();
         return Fiat.valueOf(currencyCode, val);
     }
+	
+	private double requestGltBtcConversion() {
+        final Request.Builder request = new Request.Builder();
+        request.url(COINEXCHANGE_URL);
+        request.header("User-Agent", userAgent);
+
+        final Call call = Constants.HTTP_CLIENT.newCall(request.build());
+        try {
+            final Response response = call.execute();
+            if (response.isSuccessful()) {
+                final String content = response.body().string();
+                try {
+                    final JSONObject json = new JSONObject(content);
+					final JSONObject lastprice = json.getJSONObject("result");
+                    boolean success = json.getString("success").equals("1");
+                    if (!success) {
+                        return -1;
+                    }
+                    return Double.valueOf(lastprice.getString("LastPrice"));
+                } catch (NumberFormatException e) {
+                    log.warn("Couldn't get the current exchange rate from coinexchange.");
+                    return -1;
+                }
+
+            } else {
+                log.warn("http status {} when fetching exchange rates from {}", response.code(), COINEXCHANGE_URL);
+            }
+        } catch (final Exception x) {
+            log.warn("problem reading exchange rates", x);
+        }
+
+        return -1;
+	}
+	
+	private double requestGltDogeConversion() {
+        final Request.Builder request = new Request.Builder();
+        request.url(NOVAEXCHANGE_URL_DOGE);
+        request.header("User-Agent", userAgent);
+
+        final Call call = Constants.HTTP_CLIENT.newCall(request.build());
+        try {
+            final Response response = call.execute();
+            if (response.isSuccessful()) {
+                final String content = response.body().string();
+                try {
+                    final JSONObject json = new JSONObject(content);
+                    boolean success = json.getString("status").equals("success");
+					JSONArray traderesult = json.getJSONArray("markets");
+					JSONObject finaltraderesult = traderesult.getJSONObject(0);
+                    if (!success) {
+                        return -1;
+                    }
+                    return Double.valueOf(finaltraderesult.getString("last_price"));
+                } catch (NumberFormatException e) {
+                    log.warn("Couldn't get the current exchange rate from novaexchange (DOGE).");
+                    return -1;
+                }
+
+            } else {
+                log.warn("http status {} when fetching exchange rates from {}", response.code(), NOVAEXCHANGE_URL_DOGE);
+            }
+        } catch (final Exception x) {
+            log.warn("problem reading exchange rates", x);
+        }
+
+        return -1;
+	}
+	
+	private double requestGltEsp2Conversion() {
+        final Request.Builder request = new Request.Builder();
+        request.url(NOVAEXCHANGE_URL_ESP2);
+        request.header("User-Agent", userAgent);
+
+        final Call call = Constants.HTTP_CLIENT.newCall(request.build());
+        try {
+            final Response response = call.execute();
+            if (response.isSuccessful()) {
+                final String content = response.body().string();
+                try {
+                    final JSONObject json = new JSONObject(content);
+                    boolean success = json.getString("status").equals("success");
+					JSONArray traderesult = json.getJSONArray("markets");
+					JSONObject finaltraderesult = traderesult.getJSONObject(0);
+                    if (!success) {
+                        return -1;
+                    }
+                    return Double.valueOf(finaltraderesult.getString("last_price"));
+                } catch (NumberFormatException e) {
+                    log.warn("Couldn't get the current exchange rate from novaexchange (ESP2).");
+                    return -1;
+                }
+
+            } else {
+                log.warn("http status {} when fetching exchange rates from {}", response.code(), NOVAEXCHANGE_URL_ESP2);
+            }
+        } catch (final Exception x) {
+            log.warn("problem reading exchange rates", x);
+        }
+
+        return -1;
+	}
+	
+	private double requestGltKicConversion() {
+        final Request.Builder request = new Request.Builder();
+        request.url(NOVAEXCHANGE_URL_KIC);
+        request.header("User-Agent", userAgent);
+
+        final Call call = Constants.HTTP_CLIENT.newCall(request.build());
+        try {
+            final Response response = call.execute();
+            if (response.isSuccessful()) {
+                final String content = response.body().string();
+                try {
+                    final JSONObject json = new JSONObject(content);
+                    boolean success = json.getString("status").equals("success");
+					JSONArray traderesult = json.getJSONArray("markets");
+					JSONObject finaltraderesult = traderesult.getJSONObject(0);
+                    if (!success) {
+                        return -1;
+                    }
+                    return Double.valueOf(finaltraderesult.getString("last_price"));
+                } catch (NumberFormatException e) {
+                    log.warn("Couldn't get the current exchange rate from novaexchange (KIC).");
+                    return -1;
+                }
+
+            } else {
+                log.warn("http status {} when fetching exchange rates from {}", response.code(), NOVAEXCHANGE_URL_KIC);
+            }
+        } catch (final Exception x) {
+            log.warn("problem reading exchange rates", x);
+        }
+
+        return -1;
+	}
+	
+	private double requestGltLtcConversion() {
+        final Request.Builder request = new Request.Builder();
+        request.url(NOVAEXCHANGE_URL_LTC);
+        request.header("User-Agent", userAgent);
+
+        final Call call = Constants.HTTP_CLIENT.newCall(request.build());
+        try {
+            final Response response = call.execute();
+            if (response.isSuccessful()) {
+                final String content = response.body().string();
+                try {
+                    final JSONObject json = new JSONObject(content);
+                    boolean success = json.getString("status").equals("success");
+					JSONArray traderesult = json.getJSONArray("markets");
+					JSONObject finaltraderesult = traderesult.getJSONObject(0);
+                    if (!success) {
+                        return -1;
+                    }
+                    return Double.valueOf(finaltraderesult.getString("last_price"));
+                } catch (NumberFormatException e) {
+                    log.warn("Couldn't get the current exchange rate from novaexchange (LTC).");
+                    return -1;
+                }
+
+            } else {
+                log.warn("http status {} when fetching exchange rates from {}", response.code(), NOVAEXCHANGE_URL_LTC);
+            }
+        } catch (final Exception x) {
+            log.warn("problem reading exchange rates", x);
+        }
+
+        return -1;
+	}
+	
+	private double requestGltMoonConversion() {
+        final Request.Builder request = new Request.Builder();
+        request.url(NOVAEXCHANGE_URL_MOON);
+        request.header("User-Agent", userAgent);
+
+        final Call call = Constants.HTTP_CLIENT.newCall(request.build());
+        try {
+            final Response response = call.execute();
+            if (response.isSuccessful()) {
+                final String content = response.body().string();
+                try {
+                    final JSONObject json = new JSONObject(content);
+                    boolean success = json.getString("status").equals("success");
+					JSONArray traderesult = json.getJSONArray("markets");
+					JSONObject finaltraderesult = traderesult.getJSONObject(0);
+                    if (!success) {
+                        return -1;
+                    }
+                    return Double.valueOf(finaltraderesult.getString("last_price"));
+                } catch (NumberFormatException e) {
+                    log.warn("Couldn't get the current exchange rate from novaexchange (MOON).");
+                    return -1;
+                }
+
+            } else {
+                log.warn("http status {} when fetching exchange rates from {}", response.code(), NOVAEXCHANGE_URL_MOON);
+            }
+        } catch (final Exception x) {
+            log.warn("problem reading exchange rates", x);
+        }
+
+        return -1;
+	}
 }
