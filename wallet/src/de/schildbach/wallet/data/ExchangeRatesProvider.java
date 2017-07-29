@@ -229,7 +229,6 @@ public class ExchangeRatesProvider extends ContentProvider {
 				newExchangeRates.put("BTC", new ExchangeRate(new org.bitcoinj.utils.ExchangeRate(Fiat.parseFiat("BTC", strBTCRate)), COINEXCHANGE_SOURCE));
 				newExchangeRates.put("DOGE", new ExchangeRate(new org.bitcoinj.utils.ExchangeRate(Fiat.parseFiat("DOGE", strDogeRate)), NOVAEXCHANGE_SOURCE_DOGE));
 				newExchangeRates.put("ESP2", new ExchangeRate(new org.bitcoinj.utils.ExchangeRate(Fiat.parseFiat("ESP2", strEsp2Rate)), NOVAEXCHANGE_SOURCE_ESP2));
-				newExchangeRates.put("GLT", new ExchangeRate(new org.bitcoinj.utils.ExchangeRate(Fiat.parseFiat("GLT", "1")), COINEXCHANGE_SOURCE));
 				newExchangeRates.put("KIC", new ExchangeRate(new org.bitcoinj.utils.ExchangeRate(Fiat.parseFiat("KIC", strKicRate)), NOVAEXCHANGE_SOURCE_KIC));
 				newExchangeRates.put("LTC", new ExchangeRate(new org.bitcoinj.utils.ExchangeRate(Fiat.parseFiat("LTC", strLtcRate)), NOVAEXCHANGE_SOURCE_LTC));
 				newExchangeRates.put("MOON", new ExchangeRate(new org.bitcoinj.utils.ExchangeRate(Fiat.parseFiat("MOON", strMoonRate)), NOVAEXCHANGE_SOURCE_MOON));
