@@ -221,7 +221,7 @@ public final class BitcoinIntegration {
     private static final int SATOSHIS_PER_COIN = 100000000;
 
     private static Intent makeBitcoinUriIntent(final String address, final Long amount) {
-        final StringBuilder uri = new StringBuilder("bitcoin:");
+        final StringBuilder uri = new StringBuilder("globaltoken:");
         if (address != null)
             uri.append(address);
         if (amount != null)
