@@ -96,6 +96,7 @@ import android.os.Handler;
 import android.os.IBinder;
 import android.os.PowerManager;
 import android.os.PowerManager.WakeLock;
+import android.support.v4.app.NotificationCompat;
 import android.support.v4.content.LocalBroadcastManager;
 import android.text.format.DateUtils;
 
@@ -203,7 +204,8 @@ public class BlockchainServiceImpl extends android.app.Service implements Blockc
             text.append(label != null ? label : addressStr);
         }
 
-        final Notification.Builder notification = new Notification.Builder(this);
+        final NotificationCompat.Builder notification = new NotificationCompat.Builder(this,
+                Constants.NOTIFICATION_CHANNEL_ID_RECEIVED);
         notification.setSmallIcon(R.drawable.stat_notify_received_24dp);
         notification.setTicker(tickerMsg);
         notification.setContentTitle(msg);
@@ -213,7 +215,7 @@ public class BlockchainServiceImpl extends android.app.Service implements Blockc
         notification.setNumber(notificationCount == 1 ? 0 : notificationCount);
         notification.setWhen(System.currentTimeMillis());
         notification.setSound(Uri.parse("android.resource://" + getPackageName() + "/" + R.raw.coins_received));
-        nm.notify(Constants.NOTIFICATION_ID_COINS_RECEIVED, notification.getNotification());
+        nm.notify(Constants.NOTIFICATION_ID_COINS_RECEIVED, notification.build());
     }
 
     private final class PeerConnectivityListener
@@ -261,17 +263,18 @@ public class BlockchainServiceImpl extends android.app.Service implements Blockc
                     final boolean connectivityNotificationEnabled = config.getConnectivityNotificationEnabled();
 
                     if (!connectivityNotificationEnabled || numPeers == 0) {
-                        nm.cancel(Constants.NOTIFICATION_ID_CONNECTED);
+                        stopForeground(true);
                     } else {
-                        final Notification.Builder notification = new Notification.Builder(BlockchainServiceImpl.this);
-                        notification.setSmallIcon(R.drawable.stat_sys_peers, numPeers > 4 ? 4 : numPeers);
+                        final NotificationCompat.Builder notification = new NotificationCompat.Builder(
+                                BlockchainServiceImpl.this, Constants.NOTIFICATION_CHANNEL_ID_ONGOING);
+                        notification.setSmallIcon(R.drawable.stat_notify_peers, Math.min(numPeers, 4));
                         notification.setContentTitle(getString(R.string.app_name));
                         notification.setContentText(getString(R.string.notification_peers_connected_msg, numPeers));
                         notification.setContentIntent(PendingIntent.getActivity(BlockchainServiceImpl.this, 0,
                                 new Intent(BlockchainServiceImpl.this, WalletActivity.class), 0));
                         notification.setWhen(System.currentTimeMillis());
                         notification.setOngoing(true);
-                        nm.notify(Constants.NOTIFICATION_ID_CONNECTED, notification.getNotification());
+                        startForeground(Constants.NOTIFICATION_ID_CONNECTED, notification.build());
                     }
 
                     // send broadcast
@@ -698,6 +701,8 @@ public class BlockchainServiceImpl extends android.app.Service implements Blockc
             log.info("removing blockchain");
             blockChainFile.delete();
         }
+
+        stopForeground(true);
 
         super.onDestroy();
 

@@ -23,6 +23,7 @@ import java.io.FileNotFoundException;
 import java.io.IOException;
 import java.io.InputStream;
 import java.io.OutputStream;
+import java.time.Clock;
 import java.util.concurrent.TimeUnit;
 
 import org.bitcoinj.core.Transaction;
@@ -51,11 +52,16 @@ import org.globaltoken.wallet.R;
 import android.app.ActivityManager;
 import android.app.AlarmManager;
 import android.app.Application;
+import android.app.NotificationChannel;
+import android.app.NotificationManager;
 import android.app.PendingIntent;
 import android.content.Context;
 import android.content.Intent;
 import android.content.pm.PackageInfo;
 import android.content.pm.PackageManager.NameNotFoundException;
+import android.media.AudioAttributes;
+import android.media.AudioManager;
+import android.net.Uri;
 import android.os.Build;
 import android.os.StrictMode;
 import android.preference.PreferenceManager;
@@ -150,6 +156,8 @@ public class WalletApplication extends Application {
         afterLoadWallet();
 
         cleanupFiles();
+
+        initNotificationManager();
     }
 
     private void afterLoadWallet() {
@@ -164,7 +172,19 @@ public class WalletApplication extends Application {
     }
 
     private void initLogging() {
-        final File logDir = getDir("log", MODE_PRIVATE);
+        // create log dir
+        final File logDir = new File(getFilesDir(), "log");
+        logDir.mkdir();
+
+        // migrate old logs
+        final File oldLogDir = getDir("log", MODE_PRIVATE);
+        if (oldLogDir.exists()) {
+            for (final File logFile : oldLogDir.listFiles())
+                if (logFile.isFile() && logFile.length() > 0)
+                    logFile.renameTo(new File(logDir, logFile.getName()));
+            oldLogDir.delete();
+        }
+
         final File logFile = new File(logDir, "wallet.log");
 
         final LoggerContext context = (LoggerContext) LoggerFactory.getILoggerFactory();
@@ -373,6 +393,31 @@ public class WalletApplication extends Application {
                 log.info("removing obsolete file: '{}'", file);
                 file.delete();
             }
+        }
+    }
+
+    private void initNotificationManager() {
+        if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.O) {
+            final Stopwatch watch = Stopwatch.createStarted();
+            final NotificationManager nm = (NotificationManager) getSystemService(Context.NOTIFICATION_SERVICE);
+
+            final NotificationChannel received = new NotificationChannel(Constants.NOTIFICATION_CHANNEL_ID_RECEIVED,
+                    getString(R.string.notification_channel_received_name), NotificationManager.IMPORTANCE_DEFAULT);
+            received.setSound(Uri.parse("android.resource://" + getPackageName() + "/" + R.raw.coins_received),
+                    new AudioAttributes.Builder().setContentType(AudioAttributes.CONTENT_TYPE_SONIFICATION)
+                            .setLegacyStreamType(AudioManager.STREAM_NOTIFICATION)
+                            .setUsage(AudioAttributes.USAGE_NOTIFICATION_EVENT).build());
+            nm.createNotificationChannel(received);
+
+            final NotificationChannel ongoing = new NotificationChannel(Constants.NOTIFICATION_CHANNEL_ID_ONGOING,
+                    getString(R.string.notification_channel_ongoing_name), NotificationManager.IMPORTANCE_LOW);
+            nm.createNotificationChannel(ongoing);
+
+            final NotificationChannel important = new NotificationChannel(Constants.NOTIFICATION_CHANNEL_ID_IMPORTANT,
+                    getString(R.string.notification_channel_important_name), NotificationManager.IMPORTANCE_HIGH);
+            nm.createNotificationChannel(important);
+
+            log.info("created notification channels, took {}", watch);
         }
     }
 
