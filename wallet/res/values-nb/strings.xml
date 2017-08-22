@@ -29,7 +29,7 @@
   <string name="wallet_transactions_fragment_empty_text_howto">Hvordan får man bitcoins?\n\nKjøp for tradisjonelle penger,\nselg varer eller tjenester eller\ntjen dem ved å arbeide.</string>
   <string name="wallet_transactions_row_warning_backup">Gratulerer, du har mottatt din første betaling! Har du &lt;u&gt;tatt en sikkerhetskopi av din lommebok&lt;/u&gt;, for å beskytte deg mot tap?</string>
   <string name="wallet_transactions_row_warning_storage_encryption">Tips: For å øke sikkerheten for lommeboka, kan du &lt;u&gt;kryptere enheten&lt;/u&gt;. Dette beskytter også andre apper sine data.</string>
-  <string name="wallet_transactions_row_warning_chain_forking">Bitcoin-nettverket er under vedlikehold. Du rådes til å ikke sende eller motta mynter inntil vedlikeholdet er ferdig. &lt;u&gt;Mer informasjon.&lt;/u&gt;</string>
+  <string name="wallet_transactions_row_warning_chain_forking">Globaltoken-nettverket er under vedlikehold. Du rådes til å ikke sende eller motta mynter inntil vedlikeholdet er ferdig. &lt;u&gt;Mer informasjon.&lt;/u&gt;</string>
   <string name="wallet_transactions_fragment_coinbase">utgravd</string>
   <string name="wallet_transactions_fragment_internal">intern</string>
   <string name="wallet_transactions_options_filter">Filter</string>
@@ -165,7 +165,7 @@
   <string name="transaction_row_message_received_direct">Denne betalingen er mottatt direkte. Det er en risiko for at den aldri blir brukbar.</string>
   <string name="transaction_row_message_received_unconfirmed_delayed">Bekreftelsen av denne betalingen er forsinket, sannsynligvis på grunn av en overbelastning av Globaltoken-nettverket.</string>
   <string name="transaction_row_message_received_unconfirmed_unlocked">Denne betalingen bør bli brukbar om få minutter.</string>
-  <string name="transaction_row_message_received_unconfirmed_chain_forking">På grunn av vedlikehold på Bitcoin-nettverket, bør denne transaksjonen ikke tas for gitt før den er helt bekreftet.</string>
+  <string name="transaction_row_message_received_unconfirmed_chain_forking">På grunn av vedlikehold på Globaltoken-nettverket, bør denne transaksjonen ikke tas for gitt før den er helt bekreftet.</string>
   <string name="transaction_row_message_received_in_conflict">Denne betalingen har økt risiko for å bli reversert av avsender! Hvis du kan, vent på bekreftelse.</string>
   <string name="transaction_row_message_received_dead">Denne betalingen er blitt reversert av avsenderen.</string>
   <string name="transaction_row_message_received_dust">Dette lille beløpet kan økonomisk sett sannsynligvis aldri brukes.</string>

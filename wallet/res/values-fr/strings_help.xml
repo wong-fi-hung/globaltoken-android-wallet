@@ -108,7 +108,7 @@
 			<b>Notes techniques :</b>
 		</p>
 		<p>
-			En tant que porte-monnaie VPS (vérification de paiement simplifiée), léger, le porte-monnaie Bitcoin Wallet suit la chaîne de la plus grande preuve de travail (parfois aussi appelé « la chaîne à la plus longue », « la chaîne gagnante », ou la « chaîne de blocs Bitcoin »).
+			En tant que porte-monnaie VPS (vérification de paiement simplifiée), léger, le porte-monnaie Globaltoken Wallet suit la chaîne de la plus grande preuve de travail (parfois aussi appelé « la chaîne à la plus longue », « la chaîne gagnante », ou la « chaîne de blocs Globaltoken »).
 			Vous ne pourrez recevoir des paiements entrants et ne pourrez payer que sur cette chaîne.
 			Il ne peut y avoir aucune garantie sur les bitcoins des chaînes minoritaires, c\'est-à-dire les chaînes avec moins de preuve de travail.
 		</p>

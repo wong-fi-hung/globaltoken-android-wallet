@@ -163,7 +163,7 @@
   <string name="transaction_row_message_received_direct">Questo pagamento è stato ricevuto direttamente. C\'è il rischio che non diventi spendibile.</string>
   <string name="transaction_row_message_received_unconfirmed_delayed">La conferma di questo pagamento è in ritardo, probabilmente a causa di un sovraccarico della rete Globaltoken.</string>
   <string name="transaction_row_message_received_unconfirmed_unlocked">Questo pagamento dovrebbe diventare spendibile entro pochi minuti.</string>
-  <string name="transaction_row_message_received_unconfirmed_chain_forking">A causa di manutenzione sulla rete Bitcoin, questa transazione non dovrebbe essere considerata attendibile fino a quando non sarà pienamente confermata.</string>
+  <string name="transaction_row_message_received_unconfirmed_chain_forking">A causa di manutenzione sulla rete Globaltoken, questa transazione non dovrebbe essere considerata attendibile fino a quando non sarà pienamente confermata.</string>
   <string name="transaction_row_message_received_in_conflict">Questo pagamento ha un notevole rischio di essere invertito dal mittente! Se puoi, attenti la conferma.</string>
   <string name="transaction_row_message_received_dead">Questo pagamento è stato revocato dal mittente.</string>
   <string name="transaction_row_message_received_dust">Questo piccolo importo probabilmente non sarà mai speso economicamente.</string>

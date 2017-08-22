@@ -159,7 +159,7 @@
   <string name="transaction_row_message_purpose_raise_fee">Aquesta transacció augmenta la comissió de xarxa per a un pagament anterior.</string>
   <string name="transaction_row_message_own_unbroadcasted">Aquest pagament encara no s\'ha transferit.</string>
   <string name="transaction_row_message_received_direct">Aquest pagament s\'ha rebut directament. Hi ha risc de que mai es pugui gastar.</string>
-  <string name="transaction_row_message_received_unconfirmed_delayed">La confirmació d\'aquest pagament està retardada, probablement a causa d\'una sobrecàrrega de la xarxa Bitcoin.</string>
+  <string name="transaction_row_message_received_unconfirmed_delayed">La confirmació d\'aquest pagament està retardada, probablement a causa d\'una sobrecàrrega de la xarxa Globaltoken.</string>
   <string name="transaction_row_message_received_unconfirmed_unlocked">Aquest pagament deuria estar disponible en pocs minuts.</string>
   <string name="transaction_row_message_received_in_conflict">Aquest pagament té un major risc de ser revertit pel remitent! Si pots, espera la confirmació.</string>
   <string name="transaction_row_message_received_dead">Aquest pagament ha sigut revertit per qui l\'ha enviat.</string>
@@ -298,12 +298,12 @@
   <string name="about_community_googleplus_summary">Debat sobre l\'aplicació</string>
   <string name="notification_coins_received_msg">Rebuts%s</string>
   <string name="notification_peers_connected_msg">%d parells connectats</string>
-  <string name="notification_inactivity_title">Encara tens Bitcoins en aquest dispositiu!</string>
-  <string name="notification_inactivity_message">Recorda que el teu balanç de %s es perdrà si es desinstal·la l\'aplicació Bitcoin Wallet sense enviar-los primer.</string>
-  <string name="notification_inactivity_message_donate">Si no et preocupen les teves monedes, també pots donar-les al projecte Bitcoin Wallet.</string>
+  <string name="notification_inactivity_title">Encara tens Globaltokens en aquest dispositiu!</string>
+  <string name="notification_inactivity_message">Recorda que el teu balanç de %s es perdrà si es desinstal·la l\'aplicació Globaltoken Wallet sense enviar-los primer.</string>
+  <string name="notification_inactivity_message_donate">Si no et preocupen les teves monedes, també pots donar-les al projecte Globaltoken Wallet.</string>
   <string name="notification_inactivity_action_dismiss">Recorda més tard</string>
   <string name="notification_inactivity_action_dismiss_forever">No m\'ho recordis</string>
-  <string name="appwidget_wallet_balance_title">Balanç Bitcoin</string>
+  <string name="appwidget_wallet_balance_title">Balanç Globaltoken</string>
   <!--generic buttons-->
   <string name="button_ok">D\'acord</string>
   <string name="button_dismiss">Descarta</string>

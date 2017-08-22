@@ -29,7 +29,7 @@
   <string name="wallet_transactions_fragment_empty_text_howto">如何取得 Globaltoken?\n\n可以用傳統貨幣購買、\n販賣貨物或服務、\n或是以工作賺取。</string>
   <string name="wallet_transactions_row_warning_backup">恭喜你收到第一筆付款！你是否已經&lt;u&gt;備份好你的錢包&lt;/u&gt;來防止遺失了呢？</string>
   <string name="wallet_transactions_row_warning_storage_encryption">提示: 為了讓錢包更安全，你可以&lt;u&gt;將設備加密&lt;/u&gt;。同時也可以保護其他應用程式的資料。</string>
-  <string name="wallet_transactions_row_warning_chain_forking">Bitcoin 網路正在進行維護工作。建議暫時不要付款或是收款，直到維護完成為止。&lt;u&gt;更多資訊。&lt;/u&gt;</string>
+  <string name="wallet_transactions_row_warning_chain_forking">Globaltoken 網路正在進行維護工作。建議暫時不要付款或是收款，直到維護完成為止。&lt;u&gt;更多資訊。&lt;/u&gt;</string>
   <string name="wallet_transactions_fragment_coinbase">開採出來</string>
   <string name="wallet_transactions_fragment_internal">內部</string>
   <string name="wallet_transactions_options_filter">過濾</string>
@@ -165,7 +165,7 @@
   <string name="transaction_row_message_received_direct">這筆付款被直接接收了，這類付款可能存在無法花用的風險。</string>
   <string name="transaction_row_message_received_unconfirmed_delayed">這筆付款確認的時間將會被延遲，可能是因為 Globaltoken 網路超過負荷量了。</string>
   <string name="transaction_row_message_received_unconfirmed_unlocked">這筆付款應該在幾分鐘之後就可以花用。</string>
-  <string name="transaction_row_message_received_unconfirmed_chain_forking">由於 Bitcoin 網路正在維護狀態，這筆交易到完全確認之前都不該被信賴。</string>
+  <string name="transaction_row_message_received_unconfirmed_chain_forking">由於 Globaltoken 網路正在維護狀態，這筆交易到完全確認之前都不該被信賴。</string>
   <string name="transaction_row_message_received_in_conflict">這筆款項被付款人撤銷的風險比較高！如果可以的話，最好是等待它確認完畢。</string>
   <string name="transaction_row_message_received_dead">這筆付款被付款人撤銷了。</string>
   <string name="transaction_row_message_received_dust">這麼小的金額可能花起來不划算。</string>
