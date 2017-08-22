@@ -38,7 +38,7 @@ import de.schildbach.wallet.Constants;
 import de.schildbach.wallet.WalletApplication;
 import de.schildbach.wallet.ui.AbstractWalletActivity;
 import de.schildbach.wallet.ui.DialogBuilder;
-import de.schildbach.wallet_test.R;
+import org.globaltoken.wallet.R;
 
 import android.app.Activity;
 import android.app.AlertDialog;

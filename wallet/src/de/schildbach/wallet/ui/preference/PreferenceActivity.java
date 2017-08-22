@@ -19,7 +19,7 @@ package de.schildbach.wallet.ui.preference;
 
 import java.util.List;
 
-import de.schildbach.wallet_test.R;
+import org.globaltoken.wallet.R;
 
 import android.view.MenuItem;
 

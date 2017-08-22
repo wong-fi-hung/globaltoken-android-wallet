@@ -17,7 +17,7 @@
 
 package de.schildbach.wallet.util;
 
-import de.schildbach.wallet_test.R;
+import org.globaltoken.wallet.R;
 
 import android.app.Activity;
 import android.app.Dialog;

@@ -58,7 +58,7 @@ import de.schildbach.wallet.Constants;
 import de.schildbach.wallet.data.PaymentIntent;
 import de.schildbach.wallet.util.Io;
 import de.schildbach.wallet.util.Qr;
-import de.schildbach.wallet_test.R;
+import org.globaltoken.wallet.R;
 
 import android.content.Context;
 import android.content.DialogInterface.OnClickListener;
@@ -78,7 +78,7 @@ public abstract class InputParser {
 
         @Override
         public void parse() {
-            if (input.startsWith("BITCOIN:-")) {
+            if (input.startsWith("GLOBALTOKEN:-")) {
                 try {
                     final byte[] serializedPaymentRequest = Qr.decodeBinary(input.substring(9));
 
@@ -96,7 +96,7 @@ public abstract class InputParser {
 
                     error(R.string.input_parser_invalid_paymentrequest, x.getMessage());
                 }
-            } else if (input.startsWith("bitcoin:")) {
+            } else if (input.startsWith("globaltoken:")) {
                 try {
                     final BitcoinURI bitcoinUri = new BitcoinURI(null, input);
                     final Address address = bitcoinUri.getAddress();
@@ -105,7 +105,7 @@ public abstract class InputParser {
 
                     handlePaymentIntent(PaymentIntent.fromBitcoinUri(bitcoinUri));
                 } catch (final BitcoinURIParseException x) {
-                    log.info("got invalid bitcoin uri: '" + input + "'", x);
+                    log.info("got invalid globaltoken uri: '" + input + "'", x);
 
                     error(R.string.input_parser_invalid_bitcoin_uri, input);
                 }
@@ -366,10 +366,10 @@ public abstract class InputParser {
     private static final Pattern PATTERN_BITCOIN_ADDRESS = Pattern
             .compile("[" + new String(Base58.ALPHABET) + "]{20,40}");
     private static final Pattern PATTERN_DUMPED_PRIVATE_KEY_UNCOMPRESSED = Pattern
-            .compile((Constants.NETWORK_PARAMETERS.getId().equals(NetworkParameters.ID_MAINNET) ? "5" : "9") + "["
+            .compile((Constants.NETWORK_PARAMETERS.getId().equals(NetworkParameters.ID_MAINNET) ? "6" : "9") + "["
                     + new String(Base58.ALPHABET) + "]{50}");
     private static final Pattern PATTERN_DUMPED_PRIVATE_KEY_COMPRESSED = Pattern
-            .compile((Constants.NETWORK_PARAMETERS.getId().equals(NetworkParameters.ID_MAINNET) ? "[KL]" : "c") + "["
+            .compile((Constants.NETWORK_PARAMETERS.getId().equals(NetworkParameters.ID_MAINNET) ? "[R]" : "c") + "["
                     + new String(Base58.ALPHABET) + "]{51}");
     private static final Pattern PATTERN_BIP38_PRIVATE_KEY = Pattern
             .compile("6P" + "[" + new String(Base58.ALPHABET) + "]{56}");
