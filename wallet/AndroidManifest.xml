@@ -199,13 +199,8 @@
             android:authorities="org.globaltoken.wallet.exchange_rates"
             android:exported="false" />
         <provider
-<<<<<<< HEAD
             android:name="android.support.v4.content.FileProvider"
-            android:authorities="de.schildbach.wallet_test.file_attachment"
-=======
-            android:name="de.schildbach.wallet.util.FileAttachmentProvider"
             android:authorities="org.globaltoken.wallet.file_attachment"
->>>>>>> refs/remotes/origin/master
             android:exported="false"
             android:grantUriPermissions="true" >
             <meta-data
